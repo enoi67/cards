@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import './sorry.css'
+import axios from "axios";
 
 const NewTask = () => {
     const [data, setData] = useState([]);
@@ -30,9 +31,7 @@ const NewTask = () => {
     }
 
     const deleteItem = (id) => {
-        fetch(`https://66288b8554afcabd07361951.mockapi.io/products/prod/${id}`, {
-            method: "DELETE",
-        })
+        axios.delete(`${url}/${id}`)
     }
 
     const onDelete = (id) => {
@@ -42,9 +41,8 @@ const NewTask = () => {
     }
 
     useEffect(() => {
-        fetch(url)
-            .then((response) => response.json())
-            .then((result) => setData(result))
+        axios.get(url)
+        .then(result => setData(result.data))
     }, [])
 
     return (
